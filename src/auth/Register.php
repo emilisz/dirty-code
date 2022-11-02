@@ -6,18 +6,18 @@ namespace App\auth;
 
 use App\User;
 
-class Login
+class Register
 {
     public function __construct(protected string $email, protected string $password)
     {
     }
 
-    public function login():bool
+    public function register()
     {
-        $user = User::where('email', $this->email)
-            ->get()
-            ->first();
-
-        return password_verify($this->password, $user->password);
+        // some validation
+       return User::create([
+            'email' => $this->email,
+            'password' => password_hash($this->password, 'empty'),
+        ]);
     }
 }
